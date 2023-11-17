@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>LR自选直充后台</title>
+  </head>
+  <body>
+  <script>
+  if(prompt("请输入密码")=="LRNB666"){
+    alert("密码正确")
+    }else{
+    alert("密码错误")
+    }
+  
+  </script>
+  </body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://test.cashbook.work/layui/css/layui.css" rel="stylesheet" />
+    <script src="http://test.cashbook.work/layui/layui.js"></script>
+    <script src="http://test.cashbook.work/layui/cryptojs-aes.js"></script>
+    <style type="text/css">
+        .layui-form {
+            width: 100%;
+        }
+
+        .layui-form-checkbox {
+            width: 130px;
+            height: 32px;
+            margin: 4px;
+        }
+
+        body {
+            text-align: center;
+            margin: 32px 5%;
+        }
+
+        .layui-form-label {
+            background-color: #d4ece97f;
+            text-align: center;
+        }
+
+        .layui-btn {
+            width: 100%;
+        }
+
+        .layui-input {
+            border: 1px solid #d4ece97f;
+        }
+
+        .message-box {
+            height: 32px;
+            line-height: 32px;
+            border-top: 1px solid #a3c176d9;
+            border-bottom: 1px solid #a3c176d9;
+            color: #e92727;
+            font-size: 16px;
+        }
+
+        .layui-bg-green {
+            width: 100%;
+            height: 28px;
+            text-align: center;
+            line-height: 28px;
+        }
+
+        .btn-send {
+            width: 100px;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+        }
+
+        .namelabel {
+            width: 120px;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <form class="layui-form" action="">
+        
+
+<div class="layui-form-item ">
+    <div class="layui-block">
+        <label class="layui-form-label">账号[手机号]</label>
+        <div class="layui-input-block">
+            <input type="text" lay-verify="required" name="phone" class="layui-input">
+            <button type="submit" class="layui-btn layui-btn-primary layui-border-orange btn-send" lay-submit="" lay-filter="btn_send">发送短信</button>
+        </div>
+    </div>
+</div>
+<div class="layui-form-item login-phone">
+    <div class="layui-block">
+        <label class="layui-form-label">密码[验证码]</label>
+        <div class="layui-input-block">
+            <input type="password" name="code" class="layui-input">
+        </div>
+    </div>
+</div>
+<div class="layui-form-item">
+    <div class="layui-block">
+        <label class="layui-form-label">渠道</label>
+        <div class="layui-input-block">
+            <input type="radio" name="platform" lay-filter="platform" value="and-phone" title="安卓[tap]验证码" checked="">
+            <input type="radio" name="platform" lay-filter="platform" value="and-account" title="安卓[tap]账号">
+            <input type="radio" name="platform" lay-filter="platform" value="and-phone-gw" title="安卓[官网]验证码" checked="">
+            <input type="radio" name="platform" lay-filter="platform" value="and-account-gw" title="安卓[官网]账号">
+            <input type="radio" name="platform" lay-filter="platform" value="ios-phone" title="苹果验证码">
+            <input type="radio" name="platform" lay-filter="platform" value="ios-account" title="苹果账号">
+            <input type="radio" name="platform" lay-filter="platform" value="and-4399" title="4399账号">
+            <input type="radio" name="platform" lay-filter="platform" value="and-4399" title="九游账号">
+    
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'element'], function () {
+        var form = layui.form,
+            $ = layui.$;
+        form.on('submit(btn_send)', function (data) {
+            layer.confirm('是否发送短信？', {
+                btn: ['确定', '取消'] //按钮
+            }, function () {
+
+                $.ajax({
+                    url: 'http://id.66xd.cn/Recharge/Subway_send',
+                    async: true,
+                    type: 'POST',
+                    data: { phone: data.field.phone, platform: data.field.platform, isTask: true },
+                    beforeSend: function (xhr) {
+                        layer.load(1, {
+                            shade: [0.1, '#fff'] //0.1透明度的白色背景
+                        });
+                    },
+                    success: function (res) {
+                        layer.alert(res, { icon: 1 });
+                        layer.closeAll('loading');
+                    },
+                    error: function () {
+                        layer.alert("成功", { icon: 1 });
+                        layer.closeAll('loading');
+                    }
+                });
+            });
+            return false;
+        });
+    });
+</script>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" style="border-radius:15px;width:100%" class="layui-btn layui-btn-danger" lay-submit="" lay-filter="btn_set">提交存档</button>
+            </div>
+        </div>
+        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                    <li>角色</li>
+                    <li>滑板</li>
+                    <li>滑板技能</li>
+                    <li>角色皮肤</li>
+                    <li>货币</li>
+                    <li>背饰</li>
+                    <li>头像框</li>
+                    <li>特权</li>
+                    <li>宝物</li>
+                    <li>特殊</li>
+            </ul>
+            <div class="layui-tab-content" style="height: 100px;">
+                    <div class="layui-tab-item">
+                            <input class="checkbox-line checkbox-31" type="checkbox" lay-filter="checkall" lay-skin="primary" title="全选">
+                                                            <input class="checkbox-line checkbox-31" type="checkbox" name="1969" lay-skin="primary" title="艾斯">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1962" lay-skin="primary" title="武田">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1869" lay-skin="primary" title="佐利尔">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1861" lay-skin="primary" title="艾美">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1897" lay-skin="primary" title="艾丽西娅">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1923" lay-skin="primary" title="阿一">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1893" lay-skin="primary" title="梅">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1810" lay-skin="primary" title="巴尔坦杰克 封">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1918" lay-skin="primary" title="宝拉">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1900" lay-skin="primary" title="迪戈">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1910" lay-skin="primary" title="铁甲武僧">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1935" lay-skin="primary" title="元气少年">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1948" lay-skin="primary" title="妮娜">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1949" lay-skin="primary" title="泽恩">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1950" lay-skin="primary" title="邦妮">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1825" lay-skin="primary" title="波迪">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1924" lay-skin="primary" title="索菲亚">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1916" lay-skin="primary" title="茉莉">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1888" lay-skin="primary" title="卡门">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1960" lay-skin="primary" title="艾嘉桦">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1957" lay-skin="primary" title="环儿">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1971" lay-skin="primary" title="查理">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1880" lay-skin="primary" title="嘟嘟">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1872" lay-skin="primary" title="伊泽">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1976" lay-skin="primary" title="克莱门汀">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1974" lay-skin="primary" title="克莱奥">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1854" lay-skin="primary" title="可可">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1928" lay-skin="primary" title="芙蕾雅">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1819" lay-skin="primary" title="妲己">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1946" lay-skin="primary" title="达瑞尔">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1821" lay-skin="primary" title="鹿少爷">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1912" lay-skin="primary" title="貂蝉">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1836" lay-skin="primary" title="龙宝宝">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1894" lay-skin="primary" title="卡里姆">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1975" lay-skin="primary" title="假面机器人">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1889" lay-skin="primary" title="兔子机器人">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1927" lay-skin="primary" title="卡勒姆">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1815" lay-skin="primary" title="精灵小黑">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1818" lay-skin="primary" title="精灵杰克">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1908" lay-skin="primary" title="精灵琪琪">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1816" lay-skin="primary" title="精灵青青">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1922" lay-skin="primary" title="蓝骑士">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1979" lay-skin="primary" title="小牙仔">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1967" lay-skin="primary" title="幻觉">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1902" lay-skin="primary" title="飞天">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1811" lay-skin="primary" title="超级费尔南多 封">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1942" lay-skin="primary" title="冰雪弗兰克">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1952" lay-skin="primary" title="冰雪杰克">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1940" lay-skin="primary" title="冰雪钉子">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1941" lay-skin="primary" title="冰雪琪琪">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1939" lay-skin="primary" title="冰雪青青">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1891" lay-skin="primary" title="街舞机器人">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1830" lay-skin="primary" title="弗兰克">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1958" lay-skin="primary" title="机械弗兰克">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1990" lay-skin="primary" title="小黑">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1907" lay-skin="primary" title="圣诞小黑">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1823" lay-skin="primary" title="卷卷">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1981" lay-skin="primary" title="未来杰克">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1904" lay-skin="primary" title="淮安">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1955" lay-skin="primary" title="姜博">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1898" lay-skin="primary" title="麦娅">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1855" lay-skin="primary" title="尼科斯">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1915" lay-skin="primary" title="十三妹">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1884" lay-skin="primary" title="刘三姐">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1837" lay-skin="primary" title="艾迪">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1895" lay-skin="primary" title="素贞">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1906" lay-skin="primary" title="冰冰">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1886" lay-skin="primary" title="浅浅">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1972" lay-skin="primary" title="哈西娜">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1868" lay-skin="primary" title="拉蒙娜">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1860" lay-skin="primary" title="伊奇">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1909" lay-skin="primary" title="马利克">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1944" lay-skin="primary" title="阿龙">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1982" lay-skin="primary" title="安琪">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1917" lay-skin="primary" title="阿尔巴">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1925" lay-skin="primary" title="亚奇">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1953" lay-skin="primary" title="杰森">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1875" lay-skin="primary" title="邬童">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1857" lay-skin="primary" title="哈库">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1845" lay-skin="primary" title="金">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1824" lay-skin="primary" title="小胖">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1959" lay-skin="primary" title="科拉尔">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1926" lay-skin="primary" title="时光少年">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1947" lay-skin="primary" title="拉娜">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1853" lay-skin="primary" title="雷克斯">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1961" lay-skin="primary" title="柠檬妹妹">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1920" lay-skin="primary" title="小武哥">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1929" lay-skin="primary" title="洛克">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1890" lay-skin="primary" title="杰米">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1899" lay-skin="primary" title="邦邦">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1848" lay-skin="primary" title="韦恩">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1986" lay-skin="primary" title="喵千金">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1834" lay-skin="primary" title="露西">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1911" lay-skin="primary" title="吕小布">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1887" lay-skin="primary" title="鸿仔">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1903" lay-skin="primary" title="阿莹">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1864" lay-skin="primary" title="爱娜">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1878" lay-skin="primary" title="萨尔玛">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1843" lay-skin="primary" title="罗莎">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1882" lay-skin="primary" title="曼尼">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1885" lay-skin="primary" title="菲利普">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1914" lay-skin="primary" title="老孙">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1931" lay-skin="primary" title="嫦娥">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1901" lay-skin="primary" title="阿丽">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1933" lay-skin="primary" title="鼠小意">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1832" lay-skin="primary" title="跑跑">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1838" lay-skin="primary" title="欢欢">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1833" lay-skin="primary" title="哪吒">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1849" lay-skin="primary" title="斯嘉丽">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1850" lay-skin="primary" title="美美">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1852" lay-skin="primary" title="福喜杰克">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1954" lay-skin="primary" title="福气琪琪">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1831" lay-skin="primary" title="尼克">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1827" lay-skin="primary" title="忍者">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1877" lay-skin="primary" title="小宁">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1812" lay-skin="primary" title="奥斯汀 封">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1934" lay-skin="primary" title="牛犇犇">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1905" lay-skin="primary" title="小春">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1956" lay-skin="primary" title="米娅">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1870" lay-skin="primary" title="卡洛斯">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1977" lay-skin="primary" title="菲尼克斯">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1970" lay-skin="primary" title="雅美">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1856" lay-skin="primary" title="科罗娜">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1871" lay-skin="primary" title="雅罗">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1973" lay-skin="primary" title="玛雅">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1826" lay-skin="primary" title="王子">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1866" lay-skin="primary" title="尹柯">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1937" lay-skin="primary" title="鼠萌萌">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1846" lay-skin="primary" title="罗伯特">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1896" lay-skin="primary" title="詹妮">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1892" lay-skin="primary" title="海音">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1840" lay-skin="primary" title="爱迪生">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1943" lay-skin="primary" title="小狐狸">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1851" lay-skin="primary" title="米娜">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1874" lay-skin="primary" title="小李">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1881" lay-skin="primary" title="佳佳">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1980" lay-skin="primary" title="杰克">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1813" lay-skin="primary" title="宋毅">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1963" lay-skin="primary" title="电音机器人">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1930" lay-skin="primary" title="太空人">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1988" lay-skin="primary" title="钉子">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1938" lay-skin="primary" title="尼古拉">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1841" lay-skin="primary" title="洛奇">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1984" lay-skin="primary" title="超级小黑">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1968" lay-skin="primary" title="超级杰克">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1966" lay-skin="primary" title="超级琪琪">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1820" lay-skin="primary" title="超级青青">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1828" lay-skin="primary" title="机器人">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1978" lay-skin="primary" title="塔哈">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1919" lay-skin="primary" title="糖心">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1829" lay-skin="primary" title="莎莎">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1814" lay-skin="primary" title="迪迦杰克">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1817" lay-skin="primary" title="虎冲冲">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1844" lay-skin="primary" title="托尼">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1865" lay-skin="primary" title="迈克">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1989" lay-skin="primary" title="琪琪">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1965" lay-skin="primary" title="维京人">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1842" lay-skin="primary" title="奥莉薇亚">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1883" lay-skin="primary" title="迪伦">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1858" lay-skin="primary" title="马可">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1862" lay-skin="primary" title="劳伦">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1936" lay-skin="primary" title="许愿神龙">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1859" lay-skin="primary" title="白小嫦">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1964" lay-skin="primary" title="艾波索">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1945" lay-skin="primary" title="甜心少女">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1879" lay-skin="primary" title="少年嬴政">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1913" lay-skin="primary" title="小虎">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1873" lay-skin="primary" title="安谧">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1921" lay-skin="primary" title="小乔">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1951" lay-skin="primary" title="小雅">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1867" lay-skin="primary" title="陶西">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1835" lay-skin="primary" title="杨戬">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1983" lay-skin="primary" title="夜莺">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1876" lay-skin="primary" title="班小松">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1987" lay-skin="primary" title="青青">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1863" lay-skin="primary" title="玉依">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1985" lay-skin="primary" title="番薯仔柠檬妹妹">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1822" lay-skin="primary" title="祖伊">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1847" lay-skin="primary" title="鬼鬼">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1839" lay-skin="primary" title="丧尸杰克">
+                                    <input class="checkbox-line checkbox-31" type="checkbox" name="1932" lay-skin="primary" title="雨果">
+                    </div>
+                    <div class="layui-tab-item">
+                            <input class="checkbox-line checkbox-30" type="checkbox" lay-filter="checkall" lay-skin="primary" title="全选">
+                                                            <input class="checkbox-line checkbox-30" type="checkbox" name="1513" lay-skin="primary" title="踏板">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1514" lay-skin="primary" title="飞毯">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1515" lay-skin="primary" title="秘宝">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1516" lay-skin="primary" title="星盘">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1517" lay-skin="primary" title="唱片">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1518" lay-skin="primary" title="原子瓦">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1519" lay-skin="primary" title="海蛇">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1520" lay-skin="primary" title="乌龟">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1510" lay-skin="primary" title="琉璃">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1511" lay-skin="primary" title="皇家战马">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1512" lay-skin="primary" title="超级跑车">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1508" lay-skin="primary" title="海浪">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1509" lay-skin="primary" title="海滩板">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1504" lay-skin="primary" title="极速光轮">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1505" lay-skin="primary" title="电音熊">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1506" lay-skin="primary" title="纪念日">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1507" lay-skin="primary" title="浮夸">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1497" lay-skin="primary" title="大跳板">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1498" lay-skin="primary" title="喷射飞行器">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1499" lay-skin="primary" title="无人机">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1500" lay-skin="primary" title="迷你兔">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1501" lay-skin="primary" title="梦幻蝴蝶">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1502" lay-skin="primary" title="鳄鱼">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1503" lay-skin="primary" title="圣甲虫">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1490" lay-skin="primary" title="骆驼">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1491" lay-skin="primary" title="灵符">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1492" lay-skin="primary" title="太空飞船">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1493" lay-skin="primary" title="樱花">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1494" lay-skin="primary" title="热狗">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1495" lay-skin="primary" title="小鸡">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1496" lay-skin="primary" title="航海船">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1485" lay-skin="primary" title="筋斗云">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1486" lay-skin="primary" title="狐狸">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1487" lay-skin="primary" title="音槌">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1488" lay-skin="primary" title="测速仪">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1489" lay-skin="primary" title="萌妹飞车">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1478" lay-skin="primary" title="小鹿板">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1479" lay-skin="primary" title="开拓者">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1480" lay-skin="primary" title="龙">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1481" lay-skin="primary" title="龙舟">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1482" lay-skin="primary" title="神龙">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1483" lay-skin="primary" title="蓝色风暴">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1484" lay-skin="primary" title="朋克滑板">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1473" lay-skin="primary" title="旋风">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1474" lay-skin="primary" title="风火轮">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1475" lay-skin="primary" title="弗拉明戈">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1476" lay-skin="primary" title="青铜战马">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1477" lay-skin="primary" title="姜饼">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1464" lay-skin="primary" title="逐风">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1465" lay-skin="primary" title="大白鲨">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1466" lay-skin="primary" title="雷电">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1467" lay-skin="primary" title="羊">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1468" lay-skin="primary" title="竹筏">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1469" lay-skin="primary" title="胜利飞燕">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1470" lay-skin="primary" title="南瓜">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1471" lay-skin="primary" title="南瓜扫帚">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1472" lay-skin="primary" title="招魂幡">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1456" lay-skin="primary" title="油纸伞">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1457" lay-skin="primary" title="龙王炮">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1458" lay-skin="primary" title="金猪">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1459" lay-skin="primary" title="合金跑车">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1460" lay-skin="primary" title="提基">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1461" lay-skin="primary" title="尤克里里">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1462" lay-skin="primary" title="高音号">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1463" lay-skin="primary" title="帆船滑板">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1449" lay-skin="primary" title="音符">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1450" lay-skin="primary" title="赤兔">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1451" lay-skin="primary" title="狂热">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1452" lay-skin="primary" title="星际巡洋舰">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1453" lay-skin="primary" title="鲸鱼">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1454" lay-skin="primary" title="冰雪奥义">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1455" lay-skin="primary" title="锦鲤">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1442" lay-skin="primary" title="玛塔塔">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1443" lay-skin="primary" title="猫咪">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1444" lay-skin="primary" title="时光涡轮">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1445" lay-skin="primary" title="劳莱斯">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1446" lay-skin="primary" title="莲台">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1447" lay-skin="primary" title="自由女神">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1448" lay-skin="primary" title="狮王">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1435" lay-skin="primary" title="洛克">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1436" lay-skin="primary" title="铃铛">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1437" lay-skin="primary" title="雪花">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1438" lay-skin="primary" title="红鼻子">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1439" lay-skin="primary" title="巡逻车">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1440" lay-skin="primary" title="卧板">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1441" lay-skin="primary" title="寅虎">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1430" lay-skin="primary" title="黄色闪电">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1431" lay-skin="primary" title="变色龙">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1432" lay-skin="primary" title="磁铁">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1433" lay-skin="primary" title="眼镜蛇">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1434" lay-skin="primary" title="魔毯">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1425" lay-skin="primary" title="马头琴">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1426" lay-skin="primary" title="仙人掌">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1427" lay-skin="primary" title="石碑">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1428" lay-skin="primary" title="迈阿密">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1429" lay-skin="primary" title="幻影">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1421" lay-skin="primary" title="疯狂赛车">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1422" lay-skin="primary" title="怪兽">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1423" lay-skin="primary" title="番薯电动车">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1424" lay-skin="primary" title="泰迪">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1415" lay-skin="primary" title="落叶">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1416" lay-skin="primary" title="电音风暴">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1417" lay-skin="primary" title="孟加拉">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1418" lay-skin="primary" title="多彩云">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1419" lay-skin="primary" title="黄色的士">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1420" lay-skin="primary" title="夜琵琶">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1407" lay-skin="primary" title="原始滑板">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1408" lay-skin="primary" title="圣诞火车">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1409" lay-skin="primary" title="冰川">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1410" lay-skin="primary" title="调色板">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1411" lay-skin="primary" title="熊猫">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1412" lay-skin="primary" title="浪漫甜心">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1413" lay-skin="primary" title="图米">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1414" lay-skin="primary" title="平底锅">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1404" lay-skin="primary" title="独角兽">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1405" lay-skin="primary" title="风韵">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1406" lay-skin="primary" title="红桃皇后">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1399" lay-skin="primary" title="七色彩虹">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1400" lay-skin="primary" title="彩虹炸弹">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1401" lay-skin="primary" title="飞羽">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1402" lay-skin="primary" title="金牌">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1403" lay-skin="primary" title="烟花火箭">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1397" lay-skin="primary" title="机车">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1398" lay-skin="primary" title="玫瑰">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1390" lay-skin="primary" title="樱之花">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1391" lay-skin="primary" title="花朵">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1392" lay-skin="primary" title="像素爱心">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1393" lay-skin="primary" title="冲浪滑板">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1394" lay-skin="primary" title="香蕉">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1395" lay-skin="primary" title="秘密">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1396" lay-skin="primary" title="泡泡糖">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1385" lay-skin="primary" title="桂花扇">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1386" lay-skin="primary" title="黄包车">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1387" lay-skin="primary" title="狮子">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1388" lay-skin="primary" title="火焰">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1389" lay-skin="primary" title="液体">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1381" lay-skin="primary" title="街头滑板">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1382" lay-skin="primary" title="雪云">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1383" lay-skin="primary" title="足球">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1384" lay-skin="primary" title="旅行者一号">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1378" lay-skin="primary" title="风之子">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1379" lay-skin="primary" title="向阳">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1380" lay-skin="primary" title="星星">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1374" lay-skin="primary" title="低音炮">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1375" lay-skin="primary" title="水晶雪橇">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1376" lay-skin="primary" title="超级冲浪板">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1377" lay-skin="primary" title="滑浪板">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1367" lay-skin="primary" title="浪花">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1368" lay-skin="primary" title="魔鬼鱼">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1369" lay-skin="primary" title="TapTap滑板">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1370" lay-skin="primary" title="传送器">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1371" lay-skin="primary" title="超级英雄">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1372" lay-skin="primary" title="腹地">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1373" lay-skin="primary" title="犀鸟">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1363" lay-skin="primary" title="影子">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1364" lay-skin="primary" title="木板">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1365" lay-skin="primary" title="拓普">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1366" lay-skin="primary" title="自由涂鸦">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1358" lay-skin="primary" title="麋鹿">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1359" lay-skin="primary" title="蓝莓滑板">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1360" lay-skin="primary" title="贡多拉">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1361" lay-skin="primary" title="奥尼">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1362" lay-skin="primary" title="维京战船">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1352" lay-skin="primary" title="雄鹰">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1353" lay-skin="primary" title="飞影">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1354" lay-skin="primary" title="竹简">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1355" lay-skin="primary" title="小米滑板">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1356" lay-skin="primary" title="哮天犬">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1357" lay-skin="primary" title="羞花">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1348" lay-skin="primary" title="羞花-搭配貂蝉+5倍得分">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1349" lay-skin="primary" title="月羽">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1350" lay-skin="primary" title="电测仪">
+                                    <input class="checkbox-line checkbox-30" type="checkbox" name="1351" lay-skin="primary" title="发条">
+                    </div>
+                    <div class="layui-tab-item">
+                            <input class="checkbox-line checkbox-29" type="checkbox" lay-filter="checkall" lay-skin="primary" title="全选">
+                                                            <input class="checkbox-line checkbox-29" type="checkbox" name="1643" lay-skin="primary" title="乌龟-泡沫轨迹">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1644" lay-skin="primary" title="皇家战马-马蹄轨迹">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1645" lay-skin="primary" title="皇家战马-超级跳越">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1640" lay-skin="primary" title="海浪-搭配科拉尔+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1641" lay-skin="primary" title="海浪-二连跳">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1642" lay-skin="primary" title="海滩板-搭配菲尼克斯+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1635" lay-skin="primary" title="极速光轮-极速">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1636" lay-skin="primary" title="极速光轮-空中滑翔">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1637" lay-skin="primary" title="电音熊-搭配妮娜+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1638" lay-skin="primary" title="电音熊-瞬间移动">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1639" lay-skin="primary" title="浮夸-搭配超级小黑+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1629" lay-skin="primary" title="浮夸-二连跳">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1630" lay-skin="primary" title="迷你兔-星星轨迹">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1631" lay-skin="primary" title="迷你兔-超级跳越">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1632" lay-skin="primary" title="梦幻蝴蝶-搭配糖心+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1633" lay-skin="primary" title="梦幻蝴蝶-超级跳跃">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1634" lay-skin="primary" title="圣甲虫-空中滑翔">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1623" lay-skin="primary" title="圣甲虫-极速">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1624" lay-skin="primary" title="骆驼-二连跳">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1625" lay-skin="primary" title="灵符-搭配鬼鬼+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1626" lay-skin="primary" title="小鸡-小鸡轨迹">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1627" lay-skin="primary" title="小鸡-极速">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1628" lay-skin="primary" title="航海船-搭配科罗娜+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1616" lay-skin="primary" title="航海船-极速">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1617" lay-skin="primary" title="筋斗云-搭配老孙+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1618" lay-skin="primary" title="筋斗云-超级跳跃">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1619" lay-skin="primary" title="测速仪-搭配假面机器人+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1620" lay-skin="primary" title="测速仪-二连跳">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1621" lay-skin="primary" title="萌妹飞车-搭配喵千金+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1622" lay-skin="primary" title="萌妹飞车-瞬间移动">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1611" lay-skin="primary" title="小鹿板-搭配鹿少爷+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1612" lay-skin="primary" title="小鹿板-超级跳跃">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1613" lay-skin="primary" title="龙舟-搭配龙宝宝+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1614" lay-skin="primary" title="神龙-高速">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1615" lay-skin="primary" title="蓝色风暴-极速">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1605" lay-skin="primary" title="旋风-搭配机械弗兰克+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1606" lay-skin="primary" title="旋风-高速">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1607" lay-skin="primary" title="风火轮-搭配哪吒+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1608" lay-skin="primary" title="风火轮-空中滑翔">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1609" lay-skin="primary" title="姜饼-空中滑翔">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1610" lay-skin="primary" title="姜饼-二连跳">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1603" lay-skin="primary" title="大白鲨-极速">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1604" lay-skin="primary" title="大白鲨-空中滑翔">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1599" lay-skin="primary" title="招魂幡-搭配白小嫦+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1600" lay-skin="primary" title="招魂幡-瞬间移动">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1601" lay-skin="primary" title="金猪-搭配小虎+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1602" lay-skin="primary" title="高音号-空中滑翔">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1596" lay-skin="primary" title="帆船滑板-空中滑翔">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1597" lay-skin="primary" title="赤兔-搭配吕小布+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1598" lay-skin="primary" title="赤兔-高速">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1592" lay-skin="primary" title="时光涡轮-搭配时光少年+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1593" lay-skin="primary" title="时光漩涡-极速">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1594" lay-skin="primary" title="莲台-搭配飞天+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1595" lay-skin="primary" title="莲台-超级跳越">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1589" lay-skin="primary" title="狮王-搭配小武哥+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1590" lay-skin="primary" title="铃铛-雪花轨迹">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1591" lay-skin="primary" title="铃铛-超级跳跃">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1584" lay-skin="primary" title="寅虎-搭配喵千金+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1585" lay-skin="primary" title="寅虎-超级跳越">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1586" lay-skin="primary" title="黄色闪电-极速">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1587" lay-skin="primary" title="磁铁-瞬移">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1588" lay-skin="primary" title="魔毯-空中滑翔">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1579" lay-skin="primary" title="魔毯-超级跳跃">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1580" lay-skin="primary" title="马头琴-搭配小雅+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1581" lay-skin="primary" title="马头琴-高速">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1582" lay-skin="primary" title="迈阿密-泡泡轨迹">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1583" lay-skin="primary" title="迈阿密-空中滑翔">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1574" lay-skin="primary" title="幻影-瞬间移动">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1575" lay-skin="primary" title="幻影-极速">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1576" lay-skin="primary" title="怪兽-极速">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1577" lay-skin="primary" title="怪兽-超级跳越">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1578" lay-skin="primary" title="番薯电动车-高速滑行">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1570" lay-skin="primary" title="电音风暴-音符轨迹">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1571" lay-skin="primary" title="电音风暴-极速">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1572" lay-skin="primary" title="多彩云-高速">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1573" lay-skin="primary" title="多彩云-瞬移&amp;变色">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1569" lay-skin="primary" title="调色板-高速滑行">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1565" lay-skin="primary" title="风韵-搭配小乔+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1566" lay-skin="primary" title="风韵-超级跳越">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1567" lay-skin="primary" title="红桃皇后-搭配克莱奥+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1568" lay-skin="primary" title="红桃皇后-二连跳">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1564" lay-skin="primary" title="七色彩虹-彩虹轨迹">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1560" lay-skin="primary" title="烟花火箭-火花轨迹">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1561" lay-skin="primary" title="烟花火箭-极速">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1562" lay-skin="primary" title="机车-瞬间移动">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1563" lay-skin="primary" title="机车-极速">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1558" lay-skin="primary" title="秘密-搭配机械弗兰克+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1559" lay-skin="primary" title="秘密-超级跳越">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1554" lay-skin="primary" title="桂花扇-搭配嫦娥+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1555" lay-skin="primary" title="桂花扇-二连跳">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1556" lay-skin="primary" title="火焰-二连跳">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1557" lay-skin="primary" title="火焰-极速">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1549" lay-skin="primary" title="液体-搭配幻觉+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1550" lay-skin="primary" title="液体-超级跳越">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1551" lay-skin="primary" title="街头滑板-二连跳">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1552" lay-skin="primary" title="街头滑板-超级跳越">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1553" lay-skin="primary" title="雪云-瞬间移动">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1543" lay-skin="primary" title="旅行者一号-搭配太空人+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1544" lay-skin="primary" title="旅行者一号-瞬间移动">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1545" lay-skin="primary" title="向阳-瞬间移动">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1546" lay-skin="primary" title="向阳-超级跳越">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1547" lay-skin="primary" title="星星-星星轨迹">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1548" lay-skin="primary" title="星星-二连跳">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1538" lay-skin="primary" title="低音炮-音符轨迹">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1539" lay-skin="primary" title="低音炮-超级跳越">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1540" lay-skin="primary" title="超级冲浪板-高速滑行">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1541" lay-skin="primary" title="滑浪板-贴近地面">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1542" lay-skin="primary" title="滑浪板-空中滑翔">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1536" lay-skin="primary" title="超级英雄-瞬间移动">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1537" lay-skin="primary" title="超级英雄-超级跳越">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1531" lay-skin="primary" title="影子-瞬间移动">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1532" lay-skin="primary" title="木板-二连跳">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1533" lay-skin="primary" title="木板-贴近地面">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1534" lay-skin="primary" title="拓普-瞬间移动">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1535" lay-skin="primary" title="拓普-超级跳跃">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1527" lay-skin="primary" title="自由涂鸦-二连跳">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1528" lay-skin="primary" title="自由涂鸦-超级跳越">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1529" lay-skin="primary" title="奥尼-空中滑翔">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1530" lay-skin="primary" title="维京战船-搭配维京人+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1524" lay-skin="primary" title="维京战船-极速">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1525" lay-skin="primary" title="哮天犬-搭配杨戬+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1526" lay-skin="primary" title="哮天犬-瞬移">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1521" lay-skin="primary" title="羞花-搭配貂蝉+5倍得分">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1522" lay-skin="primary" title="羞花-空中滑翔">
+                                    <input class="checkbox-line checkbox-29" type="checkbox" name="1523" lay-skin="primary" title="月羽-瞬间移动">
+                    </div>
+                    <div class="layui-tab-item">
+                            <input class="checkbox-line checkbox-28" type="checkbox" lay-filter="checkall" lay-skin="primary" title="全选">
+                                                            <input class="checkbox-line checkbox-28" type="checkbox" name="1710" lay-skin="primary" title="佐利尔-花农">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1694" lay-skin="primary" title="艾美-灯神">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1693" lay-skin="primary" title="艾美-贵妇">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1740" lay-skin="primary" title="艾丽西娅-时尚">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1781" lay-skin="primary" title="阿一-条纹">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1747" lay-skin="primary" title="梅-小岛">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1646" lay-skin="primary" title="巴尔坦杰克">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1775" lay-skin="primary" title="宝拉-粉红">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1774" lay-skin="primary" title="宝拉-暹罗">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1753" lay-skin="primary" title="迪戈-舞蹈">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1754" lay-skin="primary" title="迪戈-骑士">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1792" lay-skin="primary" title="泽恩-蒙面">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1797" lay-skin="primary" title="邦妮-防晒">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1652" lay-skin="primary" title="波迪-时尚">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1651" lay-skin="primary" title="波迪-冷酷">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1782" lay-skin="primary" title="索菲亚-牧场">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1780" lay-skin="primary" title="索菲亚-探戈">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1771" lay-skin="primary" title="茉莉-游猎">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1772" lay-skin="primary" title="茉莉-安卡">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1738" lay-skin="primary" title="卡门-炫彩">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1739" lay-skin="primary" title="卡门-运动">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1724" lay-skin="primary" title="嘟嘟-太空">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1725" lay-skin="primary" title="伊泽-橄榄">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1799" lay-skin="primary" title="克莱门汀-冬季">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1688" lay-skin="primary" title="可可-宴会">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1692" lay-skin="primary" title="可可-小丑">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1788" lay-skin="primary" title="芙蕾雅-维京">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1795" lay-skin="primary" title="芙蕾雅-冰雪">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1767" lay-skin="primary" title="貂蝉-舞姬">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1766" lay-skin="primary" title="貂蝉-花嫁">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1666" lay-skin="primary" title="龙宝宝-皮肤">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1744" lay-skin="primary" title="卡里姆-丝绸">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1779" lay-skin="primary" title="卡勒姆-假面">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1760" lay-skin="primary" title="精灵琪琪-冰雪">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1763" lay-skin="primary" title="精灵琪琪-糖果">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1745" lay-skin="primary" title="飞天-舞者">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1793" lay-skin="primary" title="冰雪弗兰克-阿努">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1657" lay-skin="primary" title="弗兰克-小丑">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1658" lay-skin="primary" title="弗兰克-老虎">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1807" lay-skin="primary" title="小黑-热情">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1809" lay-skin="primary" title="小黑-运动">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1761" lay-skin="primary" title="圣诞小黑-冰雪">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1650" lay-skin="primary" title="卷卷-雷鬼">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1653" lay-skin="primary" title="卷卷-金子">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1755" lay-skin="primary" title="淮安-守卫">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1705" lay-skin="primary" title="尼科斯-勇士">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1770" lay-skin="primary" title="十三妹-新春">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1732" lay-skin="primary" title="刘三姐-漓江">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1684" lay-skin="primary" title="艾迪-魔术">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1683" lay-skin="primary" title="艾迪-爵士">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1746" lay-skin="primary" title="素贞-旗袍">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1757" lay-skin="primary" title="冰冰-格格">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1736" lay-skin="primary" title="浅浅-猫女">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1734" lay-skin="primary" title="浅浅-毛绒">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1700" lay-skin="primary" title="拉蒙娜-围裙">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1698" lay-skin="primary" title="拉蒙娜-优雅">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1696" lay-skin="primary" title="伊奇-沙滩">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1686" lay-skin="primary" title="伊奇-土著">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1762" lay-skin="primary" title="马利克-长牙">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1752" lay-skin="primary" title="马利克-企鹅">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1796" lay-skin="primary" title="阿龙-功夫">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1804" lay-skin="primary" title="安琪-歌手">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1773" lay-skin="primary" title="阿尔巴-牛仔">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1784" lay-skin="primary" title="亚奇-力士">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1707" lay-skin="primary" title="邬童-棒球">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1720" lay-skin="primary" title="邬童-清凉">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1706" lay-skin="primary" title="哈库-城市">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1678" lay-skin="primary" title="金-潜水">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1681" lay-skin="primary" title="金-海岸">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1648" lay-skin="primary" title="小胖-伯爵">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1649" lay-skin="primary" title="小胖-王室">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1785" lay-skin="primary" title="时光少年-工装">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1691" lay-skin="primary" title="雷克斯-演出">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1690" lay-skin="primary" title="雷克斯-胜者">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1768" lay-skin="primary" title="小武哥-土豪">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1787" lay-skin="primary" title="洛克-西服">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1742" lay-skin="primary" title="杰米-礼帽">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1729" lay-skin="primary" title="杰米-绅士">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1750" lay-skin="primary" title="邦邦-阳光">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1751" lay-skin="primary" title="邦邦-糖果">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1675" lay-skin="primary" title="韦恩-酋长">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1673" lay-skin="primary" title="韦恩-骑士">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1670" lay-skin="primary" title="露西-哥特">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1656" lay-skin="primary" title="露西-蒸汽">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1778" lay-skin="primary" title="吕小布-公子">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1764" lay-skin="primary" title="吕小布-无双">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1748" lay-skin="primary" title="鸿仔-制服">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1743" lay-skin="primary" title="阿莹-周年">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1702" lay-skin="primary" title="爱娜-雏菊">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1723" lay-skin="primary" title="萨尔玛-游牧">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1722" lay-skin="primary" title="萨尔玛-护法">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1677" lay-skin="primary" title="罗莎-狐狸">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1728" lay-skin="primary" title="曼尼-流浪">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1735" lay-skin="primary" title="菲利普-竞速">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1733" lay-skin="primary" title="菲利普-船长">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1759" lay-skin="primary" title="老孙-行者">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1758" lay-skin="primary" title="老孙-脸谱">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1791" lay-skin="primary" title="嫦娥-绿衣">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1756" lay-skin="primary" title="阿丽-科技">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1790" lay-skin="primary" title="鼠小意-电音">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1676" lay-skin="primary" title="跑跑蓝色">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1667" lay-skin="primary" title="哪吒-莲花">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1664" lay-skin="primary" title="尼克-极速">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1665" lay-skin="primary" title="尼克-霓虹">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1669" lay-skin="primary" title="忍者-白色">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1661" lay-skin="primary" title="忍者-火焰">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1769" lay-skin="primary" title="小春-新年">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1713" lay-skin="primary" title="卡洛斯-印加">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1699" lay-skin="primary" title="卡洛斯-斗篷">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1703" lay-skin="primary" title="雅罗-小丑">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1654" lay-skin="primary" title="王子-狂欢">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1647" lay-skin="primary" title="王子-闪亮">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1721" lay-skin="primary" title="尹柯-休闲">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1711" lay-skin="primary" title="尹柯-音乐">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1680" lay-skin="primary" title="罗伯特-球迷">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1679" lay-skin="primary" title="罗伯特-红蓝">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1749" lay-skin="primary" title="詹妮-聚会">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1737" lay-skin="primary" title="詹妮-运动">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1731" lay-skin="primary" title="海音-空姐">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1672" lay-skin="primary" title="爱迪生-城市">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1798" lay-skin="primary" title="小狐狸-猛男">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1685" lay-skin="primary" title="米娜-机械">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1687" lay-skin="primary" title="米娜-粉红">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1716" lay-skin="primary" title="小李-丝绸">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1727" lay-skin="primary" title="佳佳-老虎">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1717" lay-skin="primary" title="佳佳-独角兽">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1802" lay-skin="primary" title="杰克-黑色">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1803" lay-skin="primary" title="杰克-明星">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1800" lay-skin="primary" title="钉子-摇滚">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1808" lay-skin="primary" title="钉子-朋克">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1794" lay-skin="primary" title="尼古拉-魔法">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1786" lay-skin="primary" title="尼古拉-冰雪">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1655" lay-skin="primary" title="机器人-太空">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1671" lay-skin="primary" title="机器人-玩具">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1776" lay-skin="primary" title="糖心-浪漫">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1660" lay-skin="primary" title="莎莎-拉拉队">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1659" lay-skin="primary" title="莎莎-健身">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1689" lay-skin="primary" title="托尼-平民">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1682" lay-skin="primary" title="托尼-棒球">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1704" lay-skin="primary" title="迈克-豪尔">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1701" lay-skin="primary" title="迈克-猎人">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1806" lay-skin="primary" title="琪琪-迷彩">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1801" lay-skin="primary" title="琪琪-心型">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1674" lay-skin="primary" title="奥莉薇亚-溜冰">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1730" lay-skin="primary" title="迪伦-救生员">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1741" lay-skin="primary" title="迪伦-随身听">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1697" lay-skin="primary" title="马可-舞会">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1695" lay-skin="primary" title="马可-贵族">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1714" lay-skin="primary" title="劳伦-竞选">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1726" lay-skin="primary" title="少年嬴政-秦国">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1765" lay-skin="primary" title="小虎-青春">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1715" lay-skin="primary" title="安谧-妩媚">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1718" lay-skin="primary" title="安谧-拉拉队">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1777" lay-skin="primary" title="小乔-学妹">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1712" lay-skin="primary" title="陶西-魅力">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1709" lay-skin="primary" title="陶西-假日">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1668" lay-skin="primary" title="杨戬-嘻哈">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1719" lay-skin="primary" title="班小松-校服">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1708" lay-skin="primary" title="班小松-酷派">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1805" lay-skin="primary" title="青青-小青">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1662" lay-skin="primary" title="祖伊-卷毛">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1663" lay-skin="primary" title="祖伊-车手">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1789" lay-skin="primary" title="雨果-登山">
+                                    <input class="checkbox-line checkbox-28" type="checkbox" name="1783" lay-skin="primary" title="雨果-航海">
+                    </div>
+                    <div class="layui-tab-item">
+                                                            <div class="layui-inline">
+                                            <label class="layui-form-label namelabel">金币</label>
+                                        <input type="number" style="width:200px;" name="4" class="layui-input">
+                                    </div>
+                                    <div class="layui-inline">
+                                            <label class="layui-form-label namelabel">蓝钥匙</label>
+                                        <input type="number" style="width:200px;" name="3" class="layui-input">
+                                    </div>
+                                    <div class="layui-inline">
+                                            <label class="layui-form-label namelabel">道具滑板</label>
+                                        <input type="number" style="width:200px;" name="2" class="layui-input">
+                                    </div>
+                                    <div class="layui-inline">
+                                            <label class="layui-form-label namelabel">黄钥匙</label>
+                                        <input type="number" style="width:200px;" name="1" class="layui-input">
+                                    </div>
+                    </div>
+                    <div class="layui-tab-item">
+                            <input class="checkbox-line checkbox-5" type="checkbox" lay-filter="checkall" lay-skin="primary" title="全选">
+                                                            <input class="checkbox-line checkbox-5" type="checkbox" name="515" lay-skin="primary" title="天使之翼">
+                                    <input class="checkbox-line checkbox-5" type="checkbox" name="502" lay-skin="primary" title="愚乐气球">
+                                    <input class="checkbox-line checkbox-5" type="checkbox" name="508" lay-skin="primary" title="迷蝶之翼">
+                                    <input class="checkbox-line checkbox-5" type="checkbox" name="517" lay-skin="primary" title="圣诞树">
+                                    <input class="checkbox-line checkbox-5" type="checkbox" name="504" lay-skin="primary" title="玲珑秋月">
+                                    <input class="checkbox-line checkbox-5" type="checkbox" name="506" lay-skin="primary" title="帆布克">
+                                    <input class="checkbox-line checkbox-5" type="checkbox" name="1991" lay-skin="primary" title="狗狗">
+                                    <input class="checkbox-line checkbox-5" type="checkbox" name="510" lay-skin="primary" title="甜心花环">
+                                    <input class="checkbox-line checkbox-5" type="checkbox" name="503" lay-skin="primary" title="幸运星背包">
+                                    <input class="checkbox-line checkbox-5" type="checkbox" name="514" lay-skin="primary" title="机械之翼">
+                                    <input class="checkbox-line checkbox-5" type="checkbox" name="516" lay-skin="primary" title="琵琶">
+                                    <input class="checkbox-line checkbox-5" type="checkbox" name="511" lay-skin="primary" title="元气书包">
+                                    <input class="checkbox-line checkbox-5" type="checkbox" name="512" lay-skin="primary" title="圣诞雪人">
+                                    <input class="checkbox-line checkbox-5" type="checkbox" name="513" lay-skin="primary" title="星辰">
+                                    <input class="checkbox-line checkbox-5" type="checkbox" name="1992" lay-skin="primary" title="神光棒">
+                                    <input class="checkbox-line checkbox-5" type="checkbox" name="507" lay-skin="primary" title="时光之翼">
+                                    <input class="checkbox-line checkbox-5" type="checkbox" name="505" lay-skin="primary" title="绿野风车">
+                                    <input class="checkbox-line checkbox-5" type="checkbox" name="509" lay-skin="primary" title="神龙风筝">
+                    </div>
+                    <div class="layui-tab-item">
+                            <input class="checkbox-line checkbox-4" type="checkbox" lay-filter="checkall" lay-skin="primary" title="全选">
+                                                            <input class="checkbox-line checkbox-4" type="checkbox" name="518" lay-skin="primary" title="头像框1">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="527" lay-skin="primary" title="头像框10">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="528" lay-skin="primary" title="头像框11">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="529" lay-skin="primary" title="头像框12">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="530" lay-skin="primary" title="头像框13">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="531" lay-skin="primary" title="头像框14">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="532" lay-skin="primary" title="头像框15">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="533" lay-skin="primary" title="头像框16">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="534" lay-skin="primary" title="头像框17">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="535" lay-skin="primary" title="头像框18">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="536" lay-skin="primary" title="头像框19">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="519" lay-skin="primary" title="头像框2">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="537" lay-skin="primary" title="头像框20">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="538" lay-skin="primary" title="头像框21">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="539" lay-skin="primary" title="头像框22">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="540" lay-skin="primary" title="头像框23">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="541" lay-skin="primary" title="头像框24">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="542" lay-skin="primary" title="头像框25">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="543" lay-skin="primary" title="头像框26">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="544" lay-skin="primary" title="头像框27">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="545" lay-skin="primary" title="头像框28">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="546" lay-skin="primary" title="头像框29">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="520" lay-skin="primary" title="头像框3">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="547" lay-skin="primary" title="头像框30">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="548" lay-skin="primary" title="头像框31">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="549" lay-skin="primary" title="头像框32">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="550" lay-skin="primary" title="头像框33">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="551" lay-skin="primary" title="头像框34">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="552" lay-skin="primary" title="头像框35">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="553" lay-skin="primary" title="头像框36">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="554" lay-skin="primary" title="头像框37">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="555" lay-skin="primary" title="头像框38">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="556" lay-skin="primary" title="头像框39">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="521" lay-skin="primary" title="头像框4">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="557" lay-skin="primary" title="头像框40">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="558" lay-skin="primary" title="头像框41">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="559" lay-skin="primary" title="头像框42">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="560" lay-skin="primary" title="头像框43">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="561" lay-skin="primary" title="头像框44">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="562" lay-skin="primary" title="头像框45">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="563" lay-skin="primary" title="头像框46">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="564" lay-skin="primary" title="头像框47">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="565" lay-skin="primary" title="头像框48">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="566" lay-skin="primary" title="头像框49">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="522" lay-skin="primary" title="头像框5">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="567" lay-skin="primary" title="头像框50">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="568" lay-skin="primary" title="头像框51">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="939" lay-skin="primary" title="头像框52">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="940" lay-skin="primary" title="头像框53">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="941" lay-skin="primary" title="头像框54">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="942" lay-skin="primary" title="头像框55">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="943" lay-skin="primary" title="头像框56">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="944" lay-skin="primary" title="头像框57">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="945" lay-skin="primary" title="头像框58">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="946" lay-skin="primary" title="头像框59">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="523" lay-skin="primary" title="头像框6">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="947" lay-skin="primary" title="头像框60">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="948" lay-skin="primary" title="头像框61">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="949" lay-skin="primary" title="头像框62">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="950" lay-skin="primary" title="头像框63">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="951" lay-skin="primary" title="头像框64">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="952" lay-skin="primary" title="头像框65">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="953" lay-skin="primary" title="头像框66">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="524" lay-skin="primary" title="头像框7">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="525" lay-skin="primary" title="头像框8">
+                                    <input class="checkbox-line checkbox-4" type="checkbox" name="526" lay-skin="primary" title="头像框9">
+                    </div>
+                    <div class="layui-tab-item">
+                            <input class="checkbox-line checkbox-3" type="checkbox" lay-filter="checkall" lay-skin="primary" title="全选">
+                                                            <input class="checkbox-line checkbox-3" type="checkbox" name="571" lay-skin="primary" title="十倍积分">
+                                    <input class="checkbox-line checkbox-3" type="checkbox" name="570" lay-skin="primary" title="双倍金币">
+                                    <input class="checkbox-line checkbox-3" type="checkbox" name="569" lay-skin="primary" title="炫跑卡">
+                    </div>
+                    <div class="layui-tab-item">
+                            <input class="checkbox-line checkbox-2" type="checkbox" lay-filter="checkall" lay-skin="primary" title="全选">
+                                                            <input class="checkbox-line checkbox-2" type="checkbox" name="572" lay-skin="primary" title="弗兰克的小丑面具">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="581" lay-skin="primary" title="露西的骷髅耳环">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="582" lay-skin="primary" title="莎莎的紫色花球">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="583" lay-skin="primary" title="机器人的金属发条">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="584" lay-skin="primary" title="忍者的火焰纹章">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="585" lay-skin="primary" title="杰克的星星项链">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="586" lay-skin="primary" title="洛奇机械手表">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="587" lay-skin="primary" title="卷卷的金色耳环">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="588" lay-skin="primary" title="小胖的黄金皇冠">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="589" lay-skin="primary" title="祖伊的摩托头盔">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="590" lay-skin="primary" title="波迪的狼牙项链">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="573" lay-skin="primary" title="王子的纯金手表">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="591" lay-skin="primary" title="老孙的金箍">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="592" lay-skin="primary" title="哪吒的乾坤圈">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="593" lay-skin="primary" title="科罗娜的水手锚">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="594" lay-skin="primary" title="小牙仔的积木">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="595" lay-skin="primary" title="鬼鬼的灵符">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="596" lay-skin="primary" title="吕小布黄金盔甲">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="597" lay-skin="primary" title="白小嫦的令牌">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="598" lay-skin="primary" title="龙宝宝的龙蛋">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="599" lay-skin="primary" title="万圣节鬼怪南瓜">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="600" lay-skin="primary" title="嫦娥的小月兔">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="574" lay-skin="primary" title="小武哥的舞狮头">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="601" lay-skin="primary" title="小乔的甜心手链">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="602" lay-skin="primary" title="精灵琪琪的圣诞帽">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="603" lay-skin="primary" title="僵尸杰克的夹克">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="604" lay-skin="primary" title="杨戬的火红战衣">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="605" lay-skin="primary" title="春节的大红灯笼">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="575" lay-skin="primary" title="貂蝉的美人折扇">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="576" lay-skin="primary" title="伊泽的磁性卫衣">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="577" lay-skin="primary" title="浅浅的超能校服">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="578" lay-skin="primary" title="刘三姐的照相机">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="579" lay-skin="primary" title="索菲亚的耳机">
+                                    <input class="checkbox-line checkbox-2" type="checkbox" name="580" lay-skin="primary" title="拉蒙娜的眼镜">
+                    </div>
+                    <div class="layui-tab-item">
+                                                            <div class="layui-inline">
+                                            <label class="layui-form-label namelabel">最高分数</label>
+                                        <input type="number" style="width:200px;" name="606" class="layui-input">
+                                    </div>
+                                    <div class="layui-inline">
+                                            <label class="layui-form-label namelabel">最高排名</label>
+                                        <input type="number" style="width:200px;" name="609" class="layui-input">
+                                    </div>
+                                    <div class="layui-inline">
+                                            <label class="layui-form-label namelabel">最高段位</label>
+                                        <input type="number" style="width:200px;" name="608" class="layui-input">
+                                    </div>
+                                    <div class="layui-inline">
+                                            <label class="layui-form-label namelabel">人物等级</label>
+                                        <input type="number" style="width:200px;" name="607" class="layui-input">
+                                    </div>
+                    </div>
+            </div>
+        </div>
+    </form>
+    <script>
+        layui.use(['form', 'element'], function () {
+            var form = layui.form,
+                $ = layui.$;
+
+            form.on('submit(btn_set)', function (data) {
+                layer.confirm('确认提交？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    $.ajax({
+                        url: 'http://test.cashbook.work/Tool/Subway_set',
+                        async: true,
+                        type: 'POST',
+                        data: { data: JSON.stringify(data.field) },
+                        beforeSend: function (xhr) {
+                            layer.load(1, {
+                                shade: [0.1, '#fff'] //0.1透明度的白色背景
+                            });
+                        },
+                        success: function (res) {
+                            layer.alert(res);
+                            setTimeout(() => {
+                                window.location.href = 'http://test.cashbook.work/Tool/Search';
+                            }, 1000)
+                        },
+                        error: function () {
+                            layer.alert("上传成功", { icon: 1 });
+                            layer.closeAll('loading');
+                        }
+                    });
+                });
+
+                return false;
+            });
+
+            form.on('checkbox(checkall)', function (data) {
+                var checked = this.checked;
+                var name = this.className;
+                var child = $("input[type='checkbox']");
+                child.each(function (index, item) {
+                    if (item.className === name) {
+                        item.checked = checked;
+                    }
+                });
+                form.render('checkbox');
+            });
+        });
+    </script>
+</body>
+</html>
